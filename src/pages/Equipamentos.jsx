@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser, FaFilePdf } from 'react-icons/fa';
-import jsPDF from 'jspdf';
+import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser } from 'react-icons/fa';
 
 export default function Equipamentos() {
   const [form, setForm] = useState({
@@ -38,27 +37,6 @@ export default function Equipamentos() {
       descricao: '',
       status: 'Disponível'
     });
-  };
-
-  const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text('Lista de Equipamentos', 14, 18);
-    doc.setFontSize(12);
-    let y = 30;
-    equipamentos.forEach((eq, idx) => {
-      doc.text(`Equipamento ${idx + 1}:`, 14, y);
-      doc.text(`Nome: ${eq.nome}`, 20, y + 8);
-      doc.text(`Nº de Série: ${eq.numeroSerie}`, 20, y + 16);
-      doc.text(`Descrição: ${eq.descricao}`, 20, y + 24);
-      doc.text(`Status: ${eq.status}`, 20, y + 32);
-      y += 42;
-      if (y > 270) {
-        doc.addPage();
-        y = 20;
-      }
-    });
-    doc.save('equipamentos.pdf');
   };
 
   return (
@@ -142,11 +120,6 @@ export default function Equipamentos() {
           </button>
           <button type="button" className="btn btn-clear" onClick={handleClear}>
             <FaEraser /> Limpar
-          </button>
-        </div>
-        <div className="form-actions">
-          <button type="button" className="btn btn-save" onClick={handleDownloadPDF} disabled={equipamentos.length === 0}>
-            <FaFilePdf /> Baixar PDF
           </button>
         </div>
       </form>
