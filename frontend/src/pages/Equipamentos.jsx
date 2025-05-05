@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser, FaFilePdf } from 'react-icons/fa';
+import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser, } from 'react-icons/fa';
 
 
 
@@ -127,9 +127,6 @@ export default function Equipamentos() {
           </button>
         </div>
         <div className="form-actions">
-          <button type="button" className="btn btn-save" onClick={handleDownloadPDF} disabled={equipamentos.length === 0}>
-            <FaFilePdf /> Baixar PDF
-          </button>
         </div>
       </form>
     </div>
