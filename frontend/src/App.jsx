@@ -5,10 +5,10 @@ import Equipamentos from './pages/Equipamentos';
 import Emprestimos from './pages/Emprestimos';
 import CadastroOperador from './pages/CadastroOperador';
 import Login from './pages/Login';
-import { useAuth, AuthProvider } from './context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import './App.css';
 
-function AppRoutes() {
+function App() {
   const { usuario, setUsuario } = useAuth();
 
   if (!usuario) {
@@ -39,14 +39,6 @@ function AppRoutes() {
         />
       </Routes>
     </div>
-  );
-}
-
-function App() {
-  return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
   );
 }
 
