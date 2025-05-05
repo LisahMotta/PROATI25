@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser, FaFilePdf } from 'react-icons/fa';
-import jsPDF from 'jspdf';
+let jsPDF;
+
+if (typeof window !== "undefined") {
+  const jspdfModule = require('jspdf');
+  jsPDF = jspdfModule.default;
+}
+
 
 export default function Equipamentos() {
   const [form, setForm] = useState({
