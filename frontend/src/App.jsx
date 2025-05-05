@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Equipamentos from './pages/Equipamentos';
 import Emprestimos from './pages/Emprestimos';
@@ -22,13 +22,13 @@ function App() {
   const isProati = usuario.tipo === 'PROATI';
 
   return (
-    <BrowserRouter>
-      <nav>
+    <div className="app-container">
+      <nav className="main-nav">
         <Link to="/">Dashboard</Link>
         {isProati && <Link to="/equipamentos">Equipamentos</Link>}
         <Link to="/emprestimos">Empréstimos</Link>
         {isProati && <Link to="/cadastro-operador">Operadores</Link>}
-        <button onClick={() => setUsuario(null)} style={{ marginLeft: 20 }}>Sair</button>
+        <button onClick={() => setUsuario(null)} className="logout-button">Sair</button>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -42,7 +42,7 @@ function App() {
           element={isProati ? <CadastroOperador podeCadastrar={isProati} /> : <Navigate to="/" />}
         />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 
