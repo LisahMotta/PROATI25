@@ -1,70 +1,28 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const usuariosExemplo = [
-  { usuario: 'proati', senha: '1234', tipo: 'PROATI' },
-  { usuario: 'operador', senha: '1234', tipo: 'COMUM' }
-];
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
-export default function Login() {
-  const { setUsuario } = useAuth();
-  const [form, setForm] = useState({ usuario: '', senha: '' });
-  const [erro, setErro] = useState('');
-  const navigate = useNavigate();
-
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const user = usuariosExemplo.find(
-      u => u.usuario === form.usuario && u.senha === form.senha
-    );
-    if (user) {
-      setErro('');
-      setUsuario(user);
-      navigate('/');
-    } else {
-      setErro('Usuário ou senha inválidos');
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post('https://URL-DO-SEU-BACKEND/login', { email, senha });
+      alert(res.data.mensagem);
+      localStorage.setItem('token', res.data.token);
+      // redirecione após login
+    } catch (erro) {
+      alert(erro.response.data.mensagem);
     }
   };
 
   return (
-    <div className="form-outer">
-      <form className="form-card" onSubmit={handleSubmit}>
-        <h2>Login do Sistema</h2>
-        <div className="form-group">
-          <label className="form-label" htmlFor="usuario">Usuário</label>
-          <input
-            className="input-field"
-            type="text"
-            id="usuario"
-            name="usuario"
-            value={form.usuario}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label className="form-label" htmlFor="senha">Senha</label>
-          <input
-            className="input-field"
-            type="password"
-            id="senha"
-            name="senha"
-            value={form.senha}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {erro && <div style={{ color: 'red', marginBottom: 10 }}>{erro}</div>}
-        <div className="form-actions">
-          <button type="submit" className="btn btn-save">Entrar</button>
-        </div>
-      </form>
+    <div>
+      <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+      <input type="password" placeholder="Senha" value={senha} onChange={(e)=>setSenha(e.target.value)} />
+      <button onClick={handleLogin}>Entrar</button>
     </div>
   );
-} 
+};
+
+export default Login;
