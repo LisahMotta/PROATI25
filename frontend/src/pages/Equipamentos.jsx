@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser, } from 'react-icons/fa';
+import { FaLaptop, FaBarcode, FaInfoCircle, FaCheckCircle, FaSave, FaEraser } from 'react-icons/fa';
 
 
 
