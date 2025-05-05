@@ -9,7 +9,7 @@ import { useAuth } from './context/AuthContext';
 import './App.css';
 
 function App() {
-  const { usuario, setUsuario } = useAuth();
+  const { usuario, logout } = useAuth();
 
   if (!usuario) {
     return <Login />;
@@ -24,7 +24,7 @@ function App() {
         {isProati && <Link to="/equipamentos">Equipamentos</Link>}
         <Link to="/emprestimos">Empréstimos</Link>
         {isProati && <Link to="/cadastro-operador">Operadores</Link>}
-        <button onClick={() => setUsuario(null)} className="logout-button">Sair</button>
+        <button onClick={logout} className="logout-button">Sair</button>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
