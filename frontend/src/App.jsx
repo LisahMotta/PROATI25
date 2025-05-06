@@ -10,33 +10,32 @@ import './App.css';
 function App() {
   const { usuario, logout } = useAuth();
 
-  if (!usuario) {
-    return <Login />;
-  }
-
   return (
     <div className="app-container">
-      <nav className="main-nav">
-        <span className="usuario-logado">
-          Usuário: <strong>{usuario.nome}</strong> ({usuario.tipo})
-        </span>
-        <Link to="/">Dashboard</Link>
-        <Link to="/equipamentos">Equipamentos</Link>
-        <Link to="/emprestimos">Empréstimos</Link>
-        <button 
-          onClick={() => {
-            logout();
-            window.location.href = '/';
-          }} 
-          className="logout-button pequeno"
-        >
-          Sair
-        </button>
-      </nav>
+      {usuario && (
+        <nav className="main-nav">
+          <span className="usuario-logado">
+            Usuário: <strong>{usuario.nome}</strong> ({usuario.tipo})
+          </span>
+          <Link to="/">Dashboard</Link>
+          <Link to="/equipamentos">Equipamentos</Link>
+          <Link to="/emprestimos">Empréstimos</Link>
+          <button 
+            onClick={() => {
+              logout();
+              window.location.href = '/';
+            }} 
+            className="logout-button pequeno"
+          >
+            Sair
+          </button>
+        </nav>
+      )}
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/equipamentos" element={<Equipamentos />} />
-        <Route path="/emprestimos" element={<Emprestimos />} />
+        <Route path="/login" element={!usuario ? <Login /> : <Navigate to="/" replace />} />
+        <Route path="/" element={usuario ? <Dashboard /> : <Navigate to="/login" replace />} />
+        <Route path="/equipamentos" element={usuario ? <Equipamentos /> : <Navigate to="/login" replace />} />
+        <Route path="/emprestimos" element={usuario ? <Emprestimos /> : <Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
