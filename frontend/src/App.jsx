@@ -24,7 +24,7 @@ function App() {
           <button 
             onClick={() => {
               logout();
-              window.location.href = '/#/login';
+              window.location.href = '/login';
             }} 
             className="logout-button pequeno"
           >
