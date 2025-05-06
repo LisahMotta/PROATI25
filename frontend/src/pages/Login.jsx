@@ -6,14 +6,28 @@ function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
+  const [isCadastro, setIsCadastro] = useState(false);
+  const [nome, setNome] = useState('');
+  const [tipo, setTipo] = useState('PROATI');
   const { setUsuario } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErro('');
 
-    // Aqui você pode adicionar a lógica de autenticação real
-    // Por enquanto, vamos simular um login simples
+    if (isCadastro) {
+      if (!nome || !email || !senha || !tipo) {
+        setErro('Preencha todos os campos!');
+        return;
+      }
+      setUsuario({
+        email,
+        tipo,
+        nome
+      });
+      return;
+    }
+
     if (email === 'admin@proati.com.br' && senha === 'admin123') {
       setUsuario({
         email,
@@ -23,8 +37,14 @@ function Login() {
     } else if (email === 'operador@proati.com.br' && senha === 'operador123') {
       setUsuario({
         email,
-        tipo: 'OPERADOR',
+        tipo: 'AOE',
         nome: 'Operador'
+      });
+    } else if (email === 'professor@proati.com.br' && senha === 'prof123') {
+      setUsuario({
+        email,
+        tipo: 'PROFESSOR',
+        nome: 'Professor'
       });
     } else {
       setErro('Email ou senha inválidos');
@@ -32,10 +52,43 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
+    <div
+      className="login-container"
+      style={{
+        background: "url('/fundo.png') no-repeat center center fixed",
+        backgroundSize: "cover"
+      }}
+    >
       <div className="login-box">
         <h1>Controle de Equipamentos</h1>
         <form onSubmit={handleSubmit}>
+          {isCadastro && (
+            <>
+              <div className="form-group">
+                <label htmlFor="nome">Nome:</label>
+                <input
+                  type="text"
+                  id="nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  required={isCadastro}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="tipo">Tipo de Usuário:</label>
+                <select
+                  id="tipo"
+                  value={tipo}
+                  onChange={e => setTipo(e.target.value)}
+                  required
+                >
+                  <option value="PROATI">PROATI</option>
+                  <option value="AOE">AOE</option>
+                  <option value="PROFESSOR">Professor</option>
+                </select>
+              </div>
+            </>
+          )}
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input
@@ -57,12 +110,19 @@ function Login() {
             />
           </div>
           {erro && <div className="erro-mensagem">{erro}</div>}
-          <button type="submit">Entrar</button>
+          <button type="submit">{isCadastro ? 'Cadastrar' : 'Entrar'}</button>
         </form>
-        <div className="login-info">
-          <p>Credenciais de teste:</p>
-          <p>Admin: admin@proati.com.br / admin123</p>
-          <p>Operador: operador@proati.com.br / operador123</p>
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <button
+            type="button"
+            style={{ background: 'none', color: '#007bff', border: 'none', cursor: 'pointer', textDecoration: 'underline', fontSize: '1rem' }}
+            onClick={() => {
+              setIsCadastro(!isCadastro);
+              setErro('');
+            }}
+          >
+            {isCadastro ? 'Já tem conta? Entrar' : 'Não tem conta? Cadastre-se'}
+          </button>
         </div>
       </div>
     </div>
