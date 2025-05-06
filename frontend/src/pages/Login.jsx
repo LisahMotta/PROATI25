@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
 import fundoImg from '../assets/fundo.jpg';
@@ -10,7 +11,14 @@ function Login() {
   const [isCadastro, setIsCadastro] = useState(false);
   const [nome, setNome] = useState('');
   const [tipo, setTipo] = useState('PROATI');
-  const { setUsuario } = useAuth();
+  const { setUsuario, usuario } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (usuario) {
+      navigate('/');
+    }
+  }, [usuario, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

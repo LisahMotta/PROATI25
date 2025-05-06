@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Equipamentos from './pages/Equipamentos';
 import Emprestimos from './pages/Emprestimos';
@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
   const { usuario, logout } = useAuth();
+  const location = useLocation();
 
   return (
     <div className="app-container">
@@ -23,7 +24,7 @@ function App() {
           <button 
             onClick={() => {
               logout();
-              window.location.href = '/';
+              window.location.href = '/#/login';
             }} 
             className="logout-button pequeno"
           >
