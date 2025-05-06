@@ -3,6 +3,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -62,14 +63,15 @@ app.post('/login', (req, res) => {
   });
 });
 
-// Rota de teste simples
-app.get('/', (req, res) => {
-  res.send('Backend funcionando perfeitamente!');
+// Servir arquivos estáticos do React
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+// Redirecionar todas as rotas (SPA)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 
 // Iniciar servidor
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-  });
-  
-
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
