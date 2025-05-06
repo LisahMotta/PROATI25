@@ -4,8 +4,9 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(() => {
-    const savedUser = localStorage.getItem('usuario');
-    return savedUser ? JSON.parse(savedUser) : null;
+    // Limpa o localStorage ao iniciar
+    localStorage.removeItem('usuario');
+    return null;
   });
 
   useEffect(() => {

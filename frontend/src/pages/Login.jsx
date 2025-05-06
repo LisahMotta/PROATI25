@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
+import fundoImg from '../assets/fundo.jpg';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -55,7 +56,7 @@ function Login() {
     <div
       className="login-container"
       style={{
-        background: "url('/fundo.png') no-repeat center center fixed",
+        background: `url(${fundoImg}) no-repeat center center fixed`,
         backgroundSize: "cover"
       }}
     >
