@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
@@ -11,14 +11,8 @@ function Login() {
   const [isCadastro, setIsCadastro] = useState(false);
   const [nome, setNome] = useState('');
   const [tipo, setTipo] = useState('PROATI');
-  const { setUsuario, usuario } = useAuth();
+  const { setUsuario } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (usuario) {
-      navigate('/');
-    }
-  }, [usuario, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,30 +28,17 @@ function Login() {
         tipo,
         nome
       });
+      navigate('/');
       return;
     }
 
-    if (email === 'admin@proati.com.br' && senha === 'admin123') {
-      setUsuario({
-        email,
-        tipo: 'PROATI',
-        nome: 'Administrador'
-      });
-    } else if (email === 'operador@proati.com.br' && senha === 'operador123') {
-      setUsuario({
-        email,
-        tipo: 'AOE',
-        nome: 'Operador'
-      });
-    } else if (email === 'professor@proati.com.br' && senha === 'prof123') {
-      setUsuario({
-        email,
-        tipo: 'PROFESSOR',
-        nome: 'Professor'
-      });
-    } else {
-      setErro('Email ou senha inválidos');
-    }
+    // Login simples
+    setUsuario({
+      email,
+      tipo,
+      nome: email.split('@')[0]
+    });
+    navigate('/');
   };
 
   return (
