@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-body {
+body, html {
   background: linear-gradient(120deg, #2563eb 0%, #1e40af 100%);
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  font-size: 3.125rem; /* 20px */
+  font-size: 15px;
 }
 
 .form-outer {
@@ -153,6 +153,7 @@ textarea {
 .app-container {
   min-height: 100vh;
   background-color: #f5f5f5;
+  font-size: 1rem;
 }
 
 .main-nav {
@@ -161,6 +162,7 @@ textarea {
   display: flex;
   gap: 1rem;
   align-items: center;
+  font-size: 1rem;
 }
 
 .main-nav a {
@@ -188,4 +190,44 @@ textarea {
 
 .logout-button:hover {
   background-color: #c82333;
+}
+
+.logout-button.pequeno {
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  margin-left: 1rem;
+  height: 22px;
+  min-width: unset;
+  border-radius: 3px;
+  line-height: 1.1;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  box-shadow: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button.pequeno:hover {
+  background-color: #c82333;
+}
+
+.usuario-logado {
+  color: #fff;
+  margin-right: 1.5rem;
+  font-size: 0.95rem;
+  background: #2563eb;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.2em;
+}
+
+button, input, select, textarea {
+  font-size: 0.95rem;
 }
